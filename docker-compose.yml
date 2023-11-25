@@ -17,10 +17,26 @@ services:
   joomladb:
     image: mysql:5.6
     restart: always
+    ports:
+      - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: admin123
     volumes:
       - ./vol_persistente/joomladb_data:/var/lib/mysql
+
+  flask_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 5000:5000
+    environment:
+      FLASK_APP: app.py  # Esto podría variar según cómo configure tu aplicación Flask
+    depends_on:
+      - joomladb  # Asegura que tu servicio Flask se inicie después de que joomladb esté listo
+      - joomla
+    command: bash -c "while !</dev/tcp/joomladb/3306; do sleep 1; done && python app.py"
 volumes:
   joomla_data:
     driver: local

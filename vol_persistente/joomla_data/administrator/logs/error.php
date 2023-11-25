@@ -8,3 +8,5 @@
 2023-11-25T18:32:51+00:00	INFO 192.168.0.6	joomlafailure	Username and password do not match or you do not have an account yet.
 2023-11-25T18:33:33+00:00	INFO 192.168.0.6	joomlafailure	Username and password do not match or you do not have an account yet.
 2023-11-25T18:33:42+00:00	INFO 192.168.0.6	joomlafailure	Username and password do not match or you do not have an account yet.
+2023-11-25T20:34:20+00:00	INFO 192.168.0.6	joomlacanceled	
+2023-11-25T20:34:31+00:00	INFO 192.168.0.6	joomlacanceled	
