@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 import pymysql
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='template')
 
 # Configuración de la base de datos
 db_config = {
@@ -22,7 +22,7 @@ def mostrar_articulos():
     try:
         with connection.cursor() as cursor:
             # Consulta para obtener la cantidad de artículos y sus nombres
-            sql = "SELECT COUNT(id) as total_articulos, GROUP_CONCAT(title) as nombres_articulos FROM jos_content"
+            sql = "SELECT COUNT(id) as total_articulos, GROUP_CONCAT(title) as nombres_articulos FROM e62pu_content"
             cursor.execute(sql)
             resultado = cursor.fetchone()
 
@@ -32,4 +32,4 @@ def mostrar_articulos():
         connection.close()
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+    app.run(debug=True, host='0.0.0.0')
