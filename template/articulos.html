@@ -9,9 +9,10 @@
 <body>
     <h1>Lista de Artículos</h1>
     <ul>
-        {% for article in articles %}
-            <li>{{ article.title }}</li>
+        {% for article in nombres_articulos.split(',') %}
+            <li>{{ article }}</li>
         {% endfor %}
     </ul>
 </body>
 </html>
+
