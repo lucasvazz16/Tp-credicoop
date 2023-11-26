@@ -17,8 +17,8 @@ class TestApp(unittest.TestCase):
         html_content = response.get_data(as_text=True)
 
         # Verifica que 'Prueba1' y 'Prueba2' estén en el contenido HTML
-        self.assertIn('Prueba1', html_content)
-        self.assertIn('Prueba2', html_content)
+        self.assertIn('Prueba 1', html_content)
+        self.assertIn('Prueba 2', html_content)
 
 if __name__ == '__main__':
     unittest.main()
