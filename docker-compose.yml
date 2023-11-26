@@ -37,6 +37,15 @@ services:
       - joomladb  # Asegura que tu servicio Flask se inicie después de que joomladb esté listo
       - joomla
     command: bash -c "while !</dev/tcp/joomladb/3306; do sleep 1; done && python app.py"
+
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: python -m unittest test_app.py
+    depends_on:
+      - flask_app
+
 volumes:
   joomla_data:
     driver: local
