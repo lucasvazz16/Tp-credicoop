@@ -4,10 +4,14 @@ services:
   joomla:
     image: joomla
     restart: always
+    depends_on:
+      - joomladb
+    networks:
+      - joomla_network
     links:
       - joomladb:mysql
     ports:
-      - 8080:80
+      - "8080:80"
     environment:
       JOOMLA_DB_HOST: joomladb
       JOOMLA_DB_PASSWORD: admin123
@@ -17,6 +21,8 @@ services:
   joomladb:
     image: mysql:5.6
     restart: always
+    networks:
+      - joomla_network
     ports:
       - "3306:3306"
     environment:
@@ -24,27 +30,9 @@ services:
     volumes:
       - ./vol_persistente/joomladb_data:/var/lib/mysql
 
-  flask_app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    restart: always
-    ports:
-      - 5000:5000
-    environment:
-      FLASK_APP: app.py  # Esto podría variar según cómo configure tu aplicación Flask
-    depends_on:
-      - joomladb  # Asegura que tu servicio Flask se inicie después de que joomladb esté listo
-      - joomla
-    command: bash -c "while !</dev/tcp/joomladb/3306; do sleep 1; done && python app.py"
-
-  test:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    command: python -m unittest test_app.py
-    depends_on:
-      - flask_app
+networks:
+  joomla_network:
+    driver: bridge
 
 volumes:
   joomla_data:
